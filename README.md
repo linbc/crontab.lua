@@ -9,6 +9,9 @@ http://www.cnblogs.com/linbc/p/4299065.html
 
 -------------------------------------------------------------------------------------------------------
 --传说中的测试代码
+
+
+
 local function RunTests()
 	-- the following calls are equivalent:
 	local function printMessage(a )
