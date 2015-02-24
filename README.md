@@ -13,8 +13,10 @@ http://www.cnblogs.com/linbc/p/4299065.html
 
 
 function RunTests()
-	-- the following calls are equivalent:
-	local function printMessage(a )
+	
+	
+	-- the following calls are equivalent
+	function printMessage(a )
 	  print('Hello',a)
 	end
 
