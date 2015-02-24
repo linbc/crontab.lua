@@ -94,37 +94,6 @@ local function match( left, right )
 		pos = sp + 1
 	end
 	return tonumber(string.sub(left, pos)) == right
-
-	-- --找到第一个数字,然后看接下来的字符选择逻辑分支
-	-- local st1,st2,pos = string.find(left, "-"), string.find(left, ","),0
-	-- if st1 then
-	-- 	local first,second = tonumber(string.sub(left, 0, st1 - 1)), 0
-	-- 	if first < right then
-	-- 		return false
-	-- 	end
-	-- 	local st2 = string.find(left, "/")
-	-- 	if st2 then		--形如：12-23/5
-	-- 		second = tonumber(string.sub(left, st1, st2 - 1))
-	-- 		three = tonumber(string.sub(left, st2))
-	-- 	else			--如：1-12
-	-- 		second = tonumber(string.sub(left, st1))
-	-- 	end
-	-- 	if second < right then
-	-- 		return false
-	-- 	end
-	-- else if st2 then
-	-- 	--用','分割
-	-- 	local pos,arr = st2+1, {}
-	--     -- for each divider found
-	--     for st,sp in function() return string.find(left, ',', pos, true) end do
-	--         if tonumber(string.sub(left, pos, st - 1)) == right then
-	--         	return true
-	--         end
-	--         pos = sp + 1
-	--     end
-	-- else
-	-- 	return right == tonumber(string.sub(left, 0, st1 - 1))
-	-- end
 end
 
 local function updateCrontab( self, dt )
@@ -280,62 +249,6 @@ function crontab:addCron(cid, name, crontab_str, callback, args )
 	if name and name ~= '' then
 		self._nameObj[name] = clock
 	end
-end
-
---传说中的测试代码
-local function RunTests()
-	-- the following calls are equivalent:
-	local function printMessage(a )
-	  print('Hello',a)
-	end
-
-	local cron = crontab.new()
-
-	local c1 = cron:after( 5, printMessage)
-	local c2 = cron:after( 5, print, {'Hello'})
-
-	c1:update(2) -- will print nothing, the action is not done yet
-	c1:update(5) -- will print 'Hello' once
-
-	c1:reset() -- reset the counter to 0
-
-	-- prints 'hey' 5 times and then prints 'hello'
-	while not c1:update(1) do
-	  print('hey')
-	end
-
-	-- Create a periodical clock:
-	local c3 = cron:every( 10, printMessage)
-
-	c3:update(5) -- nothing (total time: 5)
-	c3:update(4) -- nothing (total time: 9)
-	c3:update(12) -- prints 'Hello' twice (total time is now 21)
-
-	-------------------------------------
-	c1.deleted = true
-	c2.deleted = true
-	c3.deleted = true
-
-	------------------------------
-	--测试一下match
-	print('----------------------------------')
-	assert(match('*',14) == true)
-	assert(match('12-15',14) == true)
-	assert(match('18-21',14) == false)
-	assert(match('18,21',14) == false)
-	assert(match('18,21,14',14) == true)
-
-	--加一个定时器1分钟后执行
-	cron:update(1000)
-
-	--加入一个定时器每分钟执行
-	cron:addCron('每秒执行', '* * * * *', print, {'.......... cron'})
-
-	cron:update((60-os.time()%60)*1000)
-	cron:update(30*1000)
-	cron:update(31*1000)
-	cron:update(1)
-	cron:update(60*1000)		--打印两次
 end
 
 return crontab
