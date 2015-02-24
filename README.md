@@ -12,7 +12,7 @@ http://www.cnblogs.com/linbc/p/4299065.html
 
 
 
-local function RunTests()
+function RunTests()
 	-- the following calls are equivalent:
 	local function printMessage(a )
 	  print('Hello',a)
