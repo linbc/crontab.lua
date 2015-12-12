@@ -1,9 +1,12 @@
 # crontab.lua
 lua crontab
 
-
+参考资料：
 * http://www.cise.ufl.edu/~cop4600/cgi-bin/lxr/http/source.cgi/commands/simple/cron.c
 * https://github.com/kikito/cron.lua
+* 
+
+中文使用说明
 * http://www.cnblogs.com/linbc/p/4299065.html
 
 
